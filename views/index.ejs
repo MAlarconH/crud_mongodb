@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>CRUD MongoDB & Nodejs</title>
+
+    <style>
+        .container {
+            max-width: 960px;
+        }
+    </style>
+
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="shadow-lg pb-3 mb-5 bg-body rounded"> 
+            <h4> Datos del Contacto </h4>
+
+            <form action="/crear" method="POST">
+
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label"> Nombre </label>
+                    <input id="nombre" name="nombre" type="text" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="edad" class="form-label"> Edad </label>
+                    <input id="edad" name="edad" type="number" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="phone_number" class="form-label"> Celular </label>
+                    <input id="phone_number" name="phone_number" type="text" class="form-control" required>
+                </div>
+
+                <button type="submit" class="w-100 btn btn-guardar btn-lg"> <i class="bi bi-save"></i> Registrar </button>
+
+            </form>
+
+            <table id="tablaContacts" class="table mt-4">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Celular</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% contactos.forEach( (contacto) => { %>
+                        <tr>
+                            <td><%= contacto._id %></td>
+                            <td><%= contacto.nombre %></td>
+                            <td><%= contacto.edad %></td>
+                            <td><%= contacto.phone_number %></td>
+                            <td>
+                                <a type="button" class="btnEditar btn btn-outline-primary bi bi-pencil"></a>
+                                <a href="/borrar/<%= contacto._id %>" class="btn btn-outilne-danger bi bi-trash"> </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+
+
+            </table>
+        </div>
+
+        <div id="modalContacts" class="modal fade" tabindex="-1" aria-labelledby="modalContact" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" id="exampleModalLabel">Editar Info</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/editar" method="POST">
+                      <input name="id_editar" id="id_editar" type="text" hidden>
+                    <div class="mb-3">
+                      <label for="nombre_editar" class="col-form-label">Nombre:</label>
+                      <input id="nombre_editar" name="nombre_editar" type="text" class="form-control" value="">
+                    </div>
+                    <div class="mb-3">
+                      <label for="edad_editar" class="col-form-label">Edad:</label>
+                      <input id="edad_editar" name="edad_editar" type="number" class="form-control" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone_number_editar" class="col-form-label">Celular:</label>
+                        <input id="phone_number_editar" name="phone_number_editar" type="text" class="form-control" value="">
+                      </div>
+                 
+                </div>
+                <div class="modal-footer">              
+                  <button type="submit" class="btn btn-primary">Actualizar</button>
+                </div>
+              </form>
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="js/code.js"></script>
+</body>
+</html>
